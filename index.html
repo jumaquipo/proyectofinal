@@ -128,20 +128,20 @@ La comunicación con el MAX7219 se logra a través de una interfaz en serie de 4
 
    Los primeros 8 bits(D0-D7) determinan  que leds se colocan en alto. Los bits (D8-D11) me determinan que leds se aterrizan a tierra, la intensidad, el apagado entre otros.<br /><br />
 
-<img src=="http://www.ermicro.com/blog/wp-content/uploads/2012/12/max7219_01.jpg">
+<img src="http://www.ermicro.com/blog/wp-content/uploads/2012/12/max7219_01.jpg">
 <br />Fig. 4: Registro de operación de la matriz de leds max7219.<br /><br />
 
 
 •	Puntajes: Los puntajes serán mostrados en dos displays 7 segmentos, con el fin de ahorrar puertos del arduino se implementó un contador de pulsos, con esto solo se usa un puerto arduino para cada display.<br /><br />
 
-<img src=="http://digitale.galeon.com/graficas/contador9.GIF">
+<img src="http://digitale.galeon.com/graficas/contador9.GIF">
 <br />Fig. 5: Circuito esquemático del contador de pulsos.<br /><br />
 
 
 •	Mandos:  Para calcular la posición de las paletas se usaran los sensores de ultrasonido HCSR04
 Los cuales miden  la distancia mediante pulsos de ultrasonido casi similar que las ballenas.<br /><br />
 
-<img src=="https://tuixte.files.wordpress.com/2013/03/ultrasonic_sensor_schema.jpg">
+<img src="https://tuixte.files.wordpress.com/2013/03/ultrasonic_sensor_schema.jpg">
 <br />Fig. 6: Sensor ultrasonido.<br /><br />
 
 El HC-SR04 es un sensor de distancias por ultrasonidos capaz de detectar objetos y calcular la distancia a la que se encuentra en un rango de 2 a 450 cm. El sensor funciona por ultrasonidos y contiene toda la electrónica encargada de hacer la medición. Su uso es tan sencillo como enviar el pulso de arranque y medir la anchura del pulso de retorno. De muy pequeño tamaño, el HC-SR04 se destaca por su bajo consumo, gran precisión y bajo precio por lo que está reemplazando a los sensores polaroid en los robots más recientes.[3]<br /><br />
