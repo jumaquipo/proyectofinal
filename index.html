@@ -55,12 +55,134 @@
 
 </p>
 
-<h3>
-<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
-<h3>
-<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>PROCEDIMIENTO</h3>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor’s GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<p>   Para llevar a cabo el diseño, se observó el comportamiento físico implicado en una mesa de air hockey real; con el propósito de desarrollar el juego de la forma física más real posible.<br /><br />
+
+   Para cumplir con los objetivos propuestos  se tomó las siguientes consideraciones o requisitos de diseño:<br /><br />
+
+1.	La paleta o mando de cada jugador para nuestro juego se restringirá solo a un eje de movimiento el eje x en este caso.<br /><br />
+
+2.	El movimiento de la pelota al golpear el mando será el siguiente:<br /><br />
+
+•	En caso de que la pelota golpee a la esquina de la paleta y esta viene en dirección contraria a esta, el movimiento de la pelota será  el de rebotar  y tomar la misma ruta.<br />
+•	En caso de que la pelota golpee a la esquina de la  paleta y esta va en la misma dirección que la pelota, esta rebotara y tomara una ruta diferente.<br />
+•	En caso de que la pelota golpee a la paleta esta rebotara y tomara una ruta diferente.<br />
+•	En caso de que la pelota toque el borde inferior y no sea el hueco del punto y la paleta la golpee la ruta será la misma por la que vino esta misma.<br />
+•	En caso de que la pelota toque el borde inferior y sea el hueco será punto para el jugador contrario.<br />
+•	En caso de que la pelota toque los bordes izquierdo y derecho  esta rebotara y tomara dirección contraria.<br /><br />
+
+3.	La pelota tendrá un movimiento en los dos ejes en x e y.<br /><br />
+
+
+4.	La pantalla tendrá un tamaño aceptable para observar el buen funcionamiento de esta en este caso 2 matrices led 8x8.<br /><br />
+
+5.	El movimiento de la paletas será de acuerdo al movimiento de las manos que no tendrá que estar conectada a nada.<br /><br />
+
+6.	El puntaje igual que el juego real, será mostrado en unos displays 7 segmentos.<br /><br />
+
+7.	El microcontrolador debe ser de 8 bits.<br /><br />
+
+   Una vez  observado los requerimientos, se planteó  el diseño y posteriormente su desarrollo de la siguiente forma:<br /><br />
+
+Se dividió el diseño en dos partes:<br /><br />
+
+•	HARDWARE<br />
+•	SOTFWARE<br /><br />
+
+HARDWARE:<br /><br />
+
+Para esta parte se decidió hacer de la siguiente forma:<br /><br />
+
+•	Pantalla: La pantalla donde se mostrara el juego  serán dos matrices 8x8 con un manejador o multiplexor Max7219 lo cual simplifica y a la vez hace eficiente el diseño al solo usar 6 pines  en lugar de los 16 necesarios.<br /><br />
+
+IMAGEN MATRIS LED
+Fig. 4: Matriz de leds Max7219.<br /><br />
+
+El modulo consta de un controlador serie de display MAX7219, que está conectado a una matriz de 64 leds rojos.<br /><br />
+
+La comunicación con el MAX7219 se logra a través de una interfaz en serie de 4 hilos (soporta SPI) . Los dígitos individuales pueden accederse y actualizados sin tener que reescribir toda la pantalla.<br /><br />
+
+   El funcionamiento de este integrado es el siguiente:<br /><br />
+
+
+IMAGEN ESTRUCTURA MATRIS
+Fig. 5: Estructura interna de la matriz de leds max7219.<br /><br />
+
+
+   El max7219 cuenta con 5 pines de entrada:<br /><br />
+
+•	Vcc: alimentación 5v<br />
+•	GND: tierra<br />
+•	DIN: datos que se desean mostrar en el display.<br />
+•	CS o load: pin de sincronización indica cuando se van a enviar los 16 bits y su fin.<br />
+•	CLK: señal de reloj que designa el ancho de cada bit.<br />
+   En el caso de que se quiera mostrar algo en el display esta deberá ser enviado por el pin DIN donde cada ciclo del reloj (CLK) será un bit (si es 1 5V y si es 0 0V), cada uno de estos bit será guardado en un registro internó de 16 bits. <br />
+
+IMAGEN DATASHEET MAX7219 
+
+Fig. 6: Diagrama funcional de la matriz de leds max7219.<br /><br />
+
+   Los primeros 8 bits(D0-D7) determinan  que leds se colocan en alto. Los bits (D8-D11) me determinan que leds se aterrizan a tierra, la intensidad, el apagado entre otros.<br /><br />
+
+IMAGEN REGISTROS
+Fig. 7: Registro de operación de la matriz de leds max7219.<br /><br />
+
+
+•	Puntajes: Los puntajes serán mostrados en dos displays 7 segmentos, con el fin de ahorrar puertos del arduino se implementó un contador de pulsos, con esto solo se usa un puerto arduino para cada display.<br /><br />
+
+CIRCUITO CONTADOR 
+Fig. 8: Circuito esquemático del contador de pulsos.<br /><br />
+
+
+•	Mandos:  Para calcular la posición de las paletas se usaran los sensores de ultrasonido HCSR04
+Los cuales miden  la distancia mediante pulsos de ultrasonido casi similar que las ballenas.<br /><br />
+
+IMAGEN HC SR05
+Fig. 9: Sensor ultrasonido.<br /><br />
+
+El HC-SR04 es un sensor de distancias por ultrasonidos capaz de detectar objetos y calcular la distancia a la que se encuentra en un rango de 2 a 450 cm. El sensor funciona por ultrasonidos y contiene toda la electrónica encargada de hacer la medición. Su uso es tan sencillo como enviar el pulso de arranque y medir la anchura del pulso de retorno. De muy pequeño tamaño, el HC-SR04 se destaca por su bajo consumo, gran precisión y bajo precio por lo que está reemplazando a los sensores polaroid en los robots más recientes.[3]<br /><br />
+
+VIDEO 1 .<br /><br />
+
+
+
+SOTFWARE:<br /><br />
+
+   Para el software se crearon variables para indicar la posición en Y, posición en x de la pelota, indicador de dirección horizontal  e indicador de dirección vertical, indicador de display, indicador de posición para cada jugador, paletas para cada jugador y pelota.<br />
+Se usó la librería “ledcontrol.h” para simplificar el código, con la cual se maneja el max719 de acuerdo a los registros internos como se mostró en el funcionamiento en la parte de hardware.<br /><br />
+
+   De esta librería nos vamos a enfocar en una  función que es la primordial, la setRow.<br />
+setRow  recibe como parámetro la matriz en  la que se quiere mostrar, la columna en la que se quiere mostrar, y la variable que se quiere mostrar claro está que debe ser una variable de 8 bits, debido a que cada bit es una fila de la matriz.<br /><br />
+
+   Esta  escribe el cl para decir que voy a enviar los 16bits del din, en el din me codifica de acuerdo a los registros con los que opera el Max7219, para hacer encender los 1 de la variable a mostrar y colocar a tierra la columna dada  para que alumbren los bit en 1.<br />
+Esta librería es una clase, en la cual cada función es un parámetro por ende se debe declarar una variable tipo led control para cada matriz.<br /><br />
+
+  A esta variable se le debe decir cuáles son los pines DIN,CS  y CLK debido que con esto se maneja este integrado.<br /><br />
+
+   Para calcular la posición se creó la función “posición()” la cual no recibe ningún parámetro y tampoco retorna ninguno, en esta función mediante los sensores de ultrasonido se calcula la posición para cada jugador y de acuerdo a esta posición se le asigna valor a la dirección de cada paleta. Unas ves calculadas la posición se dibuja las paletas en esas posiciones.<br />
+   Para dibujar la pelota se creó la función “ppelota()” la cual no recibe ningún parámetro y tampoco retorna ninguno, en esta función primero se dibuja la pelota con setRow en la matriz en la que se encuentra ubicada, después mediante los indicador de posición vertical se incrementa x o decrementa de acuerdo al valor de esta,  lo mismo para el indicador de posición de vertical pero en este caso decrementa y.<br /><br />
+
+   En esta función hay que  considerar 3 eventos:<br /><br />
+
+•	Cuando y=1 se debe comparar con la paleta, si están en la  misma posición se cambia el valor de la dirección al inverso, con esto rebotaría. En caso de que no esté en la misma posición me compare de acuerdo a la dirección en x para ver si va a tocar las esquinas y hacer si se devuelve por la misma ruta o si cambia la ruta.<br />
+•	Si ninguno de los eventos en y=1 ocurrió quiere decir que la pelota toca el borde inferior en este caso compara con la variable punto, si son iguales entonces marca un punto al jugador, si no cambia el valor de dirección vertical. además si al comparar con la paleta corrido 1 es igual quiere decir que rebota y vuelve a la misma dirección.<br />
+•	Cuando y=7 se cambia el valor del indicador de matriz para que la pelota se muestre en la otra paleta.<br /><br />
+   La función “Limpiar()” lo que hace es borrar en la matriz el estado anterior con esto solo se observa una sola pelota y no la ruta completa de esta esto mediante la posición anterior a y, e imprimiendo en está la variable c  la cual es 0.<br /><br />
+
+La función   “Velo()”  calcula la velocidad de la pelota y mediante una ecuación determina el número de veces que deberá hacer la interrupción de tiempo hasta llamar la función “ppelota()”.<br /><br />
+
+La función “ISR()” es una interrupción interna por tiempo  mediante el reloj interno  numero 1 el cual es de 16 bits por ende el número máximo que  puede contar es 6535.<br /><br />
+
+
+VIDEO tiempo.<br /><br />
+
+
+
+ En esta función se compara el contador de velocidad y una variable que aumenta cada vez que se invoca esta función,  cuando son iguales  llama la función “ppelota()”, además en cada ciclo que se llame la interrupción se calculara la posición de la pelota y se dibujara.<br />
+Todo esto si el indicador 2 es 1.<br />
+Cuando el puntaje de algún jugador sea nueve el indicador se hace 0 y llama la función mostrar, la cual  muestra en el display el jugador que gana y nuevamente después de hacer esto el indicador se hace 0.<br /><br />
+</p>
 
 <h3>
 <a id="authors-and-game" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>MATERIALES</h3>
