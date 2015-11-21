@@ -96,7 +96,7 @@ Para esta parte se decidió hacer de la siguiente forma:<br /><br />
 
 •	Pantalla: La pantalla donde se mostrara el juego  serán dos matrices 8x8 con un manejador o multiplexor Max7219 lo cual simplifica y a la vez hace eficiente el diseño al solo usar 6 pines  en lugar de los 16 necesarios.<br /><br />
 
-IMAGEN MATRIS LED
+<a href="http://img.dxcdn.com/productimages/sku_184854_1.jpg">
 <br />Fig. 1: Matriz de leds Max7219.<br /><br />
 
 El modulo consta de un controlador serie de display MAX7219, que está conectado a una matriz de 64 leds rojos.<br /><br />
@@ -106,7 +106,7 @@ La comunicación con el MAX7219 se logra a través de una interfaz en serie de 4
    El funcionamiento de este integrado es el siguiente:<br /><br />
 
 
-IMAGEN ESTRUCTURA MATRIS
+<a href="http://cdn.instructables.com/FBG/6G4X/HJ1XP58W/FBG6G4XHJ1XP58W.MEDIUM.jpg">
 <br />Fig. 2: Estructura interna de la matriz de leds max7219.<br /><br />
 
 
@@ -119,26 +119,26 @@ IMAGEN ESTRUCTURA MATRIS
 •	CLK: señal de reloj que designa el ancho de cada bit.<br /><br />
    En el caso de que se quiera mostrar algo en el display esta deberá ser enviado por el pin DIN donde cada ciclo del reloj (CLK) será un bit (si es 1 5V y si es 0 0V), cada uno de estos bit será guardado en un registro internó de 16 bits. <br /><br />
 
-IMAGEN DATASHEET MAX7219 
+<a href="http://www.mouser.in/images/microsites/max7219block.png">
 
 <br />Fig. 3: Diagrama funcional de la matriz de leds max7219.<br /><br />
 
    Los primeros 8 bits(D0-D7) determinan  que leds se colocan en alto. Los bits (D8-D11) me determinan que leds se aterrizan a tierra, la intensidad, el apagado entre otros.<br /><br />
 
-IMAGEN REGISTROS
+<a href="http://www.ermicro.com/blog/wp-content/uploads/2012/12/max7219_01.jpg">
 <br />Fig. 4: Registro de operación de la matriz de leds max7219.<br /><br />
 
 
 •	Puntajes: Los puntajes serán mostrados en dos displays 7 segmentos, con el fin de ahorrar puertos del arduino se implementó un contador de pulsos, con esto solo se usa un puerto arduino para cada display.<br /><br />
 
-CIRCUITO CONTADOR 
+<a href="http://digitale.galeon.com/graficas/contador9.GIF">
 <br />Fig. 5: Circuito esquemático del contador de pulsos.<br /><br />
 
 
 •	Mandos:  Para calcular la posición de las paletas se usaran los sensores de ultrasonido HCSR04
 Los cuales miden  la distancia mediante pulsos de ultrasonido casi similar que las ballenas.<br /><br />
 
-IMAGEN HC SR05
+<a href="https://tuixte.files.wordpress.com/2013/03/ultrasonic_sensor_schema.jpg">
 <br />Fig. 6: Sensor ultrasonido.<br /><br />
 
 El HC-SR04 es un sensor de distancias por ultrasonidos capaz de detectar objetos y calcular la distancia a la que se encuentra en un rango de 2 a 450 cm. El sensor funciona por ultrasonidos y contiene toda la electrónica encargada de hacer la medición. Su uso es tan sencillo como enviar el pulso de arranque y medir la anchura del pulso de retorno. De muy pequeño tamaño, el HC-SR04 se destaca por su bajo consumo, gran precisión y bajo precio por lo que está reemplazando a los sensores polaroid en los robots más recientes.[3]<br /><br />
