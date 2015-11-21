@@ -96,12 +96,14 @@ Para esta parte se decidió hacer de la siguiente forma:<br /><br />
 
 •	Pantalla: La pantalla donde se mostrara el juego  serán dos matrices 8x8 con un manejador o multiplexor Max7219 lo cual simplifica y a la vez hace eficiente el diseño al solo usar 6 pines  en lugar de los 16 necesarios.<br /><br />
 </p>
+<p align="center">
 <picture>
 <img src="http://img.dxcdn.com/productimages/sku_184854_1.jpg" class="imgcenter"/>
 </picture>
-<p align="justify">
-<br />Fig. 1: Matriz de leds Max7219.<br /><br />
 
+<br />Fig. 1: Matriz de leds Max7219.<br /><br />
+</p>
+<p align="justify">
 El modulo consta de un controlador serie de display MAX7219, que está conectado a una matriz de 64 leds rojos.<br /><br />
 
 La comunicación con el MAX7219 se logra a través de una interfaz en serie de 4 hilos (soporta SPI) . Los dígitos individuales pueden accederse y actualizados sin tener que reescribir toda la pantalla.<br /><br />
